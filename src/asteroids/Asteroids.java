@@ -76,8 +76,9 @@ public class Asteroids extends Application {
         scene.setOnKeyPressed((KeyEvent event) -> { // switch para teclas 
             switch(event.getCode()){
                 case UP:
-                    velocidadNaveY = 3;
-                    velocidadNaveX = 3;
+                    
+                    velocidadNaveY += 3;
+                    velocidadNaveX += 3;
                     fuego.setVisible(true);
                     paneNaveFuego.setLayoutY(navePosY);
                     paneNaveFuego.setLayoutY(navePosX);
@@ -137,7 +138,7 @@ public class Asteroids extends Application {
                 }
                 if (anguloGrupo > 225 && anguloGrupo < 315){
                     direccionYNave= 0;
-                    direccionXNave= 0;
+                    direccionXNave= -1;
                     
                 }            
                 //movimiento nave y fuego
@@ -152,17 +153,24 @@ public class Asteroids extends Application {
                 
                 // calcular resto del angulo
                 anguloGrupo %= 360;
+                // al salir del screen 
+                if (paneNaveFuego.getLayoutY() > 600){
+                    navePosY = 0;
+
+                } 
                 
-//                if (posNaveFuegoY > ALTOPANEL){
-//                    paneNaveFuego.setLayoutY(1);
-//                } else {
-//                    paneNaveFuego.setLayoutY(navePosY);
-//                }
-//                if (posNaveFuegoY < 0){
-//                    paneNaveFuego.setLayoutY(599);
-//                } else {
-//                    paneNaveFuego.setLayoutY(navePosY);
-//                }
+                if (paneNaveFuego.getLayoutY() < 0){
+                    navePosY = 600;
+                } 
+                
+                if (paneNaveFuego.getLayoutX() > 800){
+                    navePosX = 0;
+
+                } 
+                
+                if (paneNaveFuego.getLayoutX() < 0){
+                    navePosX = 800;
+                } 
                 
                 
                 
