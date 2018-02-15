@@ -23,8 +23,7 @@ public class Nave {
     private int velocidadFuegoX = 0;
     private int navePosY = ALTOPANEL/2;
     private int navePosX = ANCHOPANEL /2;
-    private double velocidadGiroNave = 0;
-    private double velocidadGiroFuego = 0;
+    private double velocidadGiroNave;
     private double direccionXpaneFuegoNave = 0;
     private double direccionYpaneFuegoNave = 0;
     private double direccionXNave;
@@ -83,28 +82,15 @@ public class Nave {
          velocidadNaveX += 3;
         
     }
-    public void direccionNave(){   
-        direccionXNave = Math.cos(Math.toRadians(anguloGrupo));
-        direccionYNave = Math.sin(Math.toRadians(anguloGrupo));
-        System.out.println("direccionXNave: " + direccionXNave);
-        System.out.println("direccionYNave: " + direccionYNave);
-    }
-    public void movimientoPaneNaveFuego(){
-            
-        
-        
-        
-        direccionXNave = Math.cos(Math.toRadians(anguloGrupo));
+    public void movimientoPaneNaveFuego(){              
+            anguloGrupo += velocidadGiroNave;
+            paneNaveFuego.setRotate(anguloGrupo);
+            direccionXNave = Math.cos(Math.toRadians(anguloGrupo));
             direccionYNave = Math.sin(Math.toRadians(anguloGrupo));
             navePosY +=  velocidadNaveY  * direccionYNave;
             paneNaveFuego.setLayoutY(navePosY);               
             navePosX += velocidadNaveX  * direccionXNave;
             paneNaveFuego.setLayoutX(navePosX);
-    }
-    public void rotarNave(){
-            anguloGrupo += velocidadGiroNave;
-            paneNaveFuego.setRotate(anguloGrupo);
-        
     }
     public void naveBordes(){
         if (paneNaveFuego.getLayoutY() > 600){ //nave
@@ -136,10 +122,22 @@ public class Nave {
         velocidadGiroNave = 3;
     }
     public void giroIzquierda(){
-        velocidadGiroNave = -4;
+        velocidadGiroNave = -3;
     }
     public void pararGirorNave(){
         velocidadGiroNave = 0;
+    }
+    public int getNavePosY(){
+        return navePosY;
+    }
+    public int getNavePosX(){
+        return navePosX;
+    }
+    public double getDireccionNaveX(){
+        return direccionXNave;
+    }
+    public double getDireccionNaveY(){
+        return direccionYNave;
     }
     
     
