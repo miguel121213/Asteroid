@@ -15,27 +15,30 @@ import javafx.scene.shape.Circle;
 public class Bala {
     double velocidadBalaY;
     double velocidadBalaX;
-    double posBalaY;
-    double posBalaX;
     Circle formaBala = new Circle(1, 1, 1, Color.WHITE);
-    Nave getNavePos = new Nave();
-    double direccionBalaY = getNavePos.getDireccionNaveY();
-    double direccionBalaX = getNavePos.getDireccionNaveX();
+    double posBalaX;
+    double posBalaY;
+    double direccionBalaX;
+    double direccionBalaY;
+
     
     public Circle getBala(){
         return formaBala;       
     }
-    public void pulsarEspacio(){
-        posBalaY = getNavePos.getNavePosY() +10;
-        posBalaX = getNavePos.getNavePosX() + 50; 
+    public void pulsarEspacio(double anguloNave, double posNaveX, double posNaveY){
+        direccionBalaX = Math.cos(Math.toRadians(anguloNave));
+        direccionBalaY = Math.sin(Math.toRadians(anguloNave));
+        posBalaY = posNaveY + 10;
+        formaBala.setLayoutY(posBalaX);
+        posBalaX = posNaveX + 50;
+        formaBala.setLayoutX(posBalaX);
         velocidadBalaX = 15;
-        velocidadBalaY = 15;               ;
+        velocidadBalaY = 15;              
         formaBala.setVisible(true);
     }
-    public void movimientoBala(){ 
+    public void movimientoBala(){
         posBalaY += velocidadBalaY * direccionBalaY;
         formaBala.setLayoutY(posBalaY);
-        System.out.println("direccionBalaY: " + direccionBalaY);
         posBalaX += velocidadBalaX * direccionBalaX;
         formaBala.setLayoutX(posBalaX);
     }
@@ -43,5 +46,7 @@ public class Bala {
     public void balaInVisible(){
         formaBala.setVisible(false);
     }
+
+    
     
 }

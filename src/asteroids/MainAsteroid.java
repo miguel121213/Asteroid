@@ -71,7 +71,8 @@ public class MainAsteroid extends Application {
                     naveFuego.giroIzquierda();
                     break;
                 case SPACE:
-                    bala.pulsarEspacio();
+                    bala.pulsarEspacio(naveFuego.getAnguloGrupo(), naveFuego.getNavePosX(), 
+                    naveFuego.getNavePosY());
                     break;
             }
  
@@ -107,7 +108,7 @@ public class MainAsteroid extends Application {
 //                    velocidadNaveY = 10;
 //                    velocidadNaveX = 10;
 //                }
-                naveFuego.calcularRestoAngulo();
+//                naveFuego.calcularRestoAngulo();
                 // al salir del screen 
                 asteroid.bordes();
                 naveFuego.naveBordes();                  

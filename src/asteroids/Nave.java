@@ -78,19 +78,26 @@ public class Nave {
          formaFuego.setVisible(true);
     }
     public void velocidadNave(){
-         velocidadNaveY += 3;
-         velocidadNaveX += 3;
-        
+        direccionXNave = Math.cos(Math.toRadians(anguloGrupo));
+        direccionYNave = Math.sin(Math.toRadians(anguloGrupo));
+//        velocidadNaveY += 0.5 * direccionYNave;
+//        velocidadNaveY += 0.5 * direccionXNave; 
+        if ((velocidadNaveX == 0) ||(velocidadNaveY == 0)){
+            velocidadNaveY += 1 * direccionYNave;
+            velocidadNaveX += 1 * direccionXNave;
+        } else {
+            velocidadNaveY += 0.5 * direccionYNave;
+            velocidadNaveX += 0.5 * direccionXNave; 
+        }
     }
-    public void movimientoPaneNaveFuego(){              
+    public void movimientoPaneNaveFuego(){       
             anguloGrupo += velocidadGiroNave;
             paneNaveFuego.setRotate(anguloGrupo);
-            direccionXNave = Math.cos(Math.toRadians(anguloGrupo));
-            direccionYNave = Math.sin(Math.toRadians(anguloGrupo));
-            navePosY +=  velocidadNaveY  * direccionYNave;
+            navePosY +=  velocidadNaveY;
             paneNaveFuego.setLayoutY(navePosY);               
-            navePosX += velocidadNaveX  * direccionXNave;
+            navePosX += velocidadNaveX;
             paneNaveFuego.setLayoutX(navePosX);
+            anguloGrupo %= 360;
     }
     public void naveBordes(){
         if (paneNaveFuego.getLayoutY() > 600){ //nave
@@ -109,20 +116,18 @@ public class Nave {
     }
     public void calcularGiroNave(){
         anguloGrupo += velocidadGiroNave;
-        paneNaveFuego.setRotate(anguloGrupo);  
+        paneNaveFuego.setRotate(anguloGrupo);
+        anguloGrupo %= 360;
     }
     public void posPaneNaveFuego(){
         paneNaveFuego.setLayoutX(navePosX); //Poner el pane naveFuego en el centro
         paneNaveFuego.setLayoutY(navePosY); // poner el panel naveFuego en el centro
     }
-    public void calcularRestoAngulo(){
-        anguloGrupo %= 360;
-    }
     public void giroDerecha(){
-        velocidadGiroNave = 3;
+        velocidadGiroNave = 2;
     }
     public void giroIzquierda(){
-        velocidadGiroNave = -3;
+        velocidadGiroNave = -2;
     }
     public void pararGirorNave(){
         velocidadGiroNave = 0;
@@ -138,6 +143,9 @@ public class Nave {
     }
     public double getDireccionNaveY(){
         return direccionYNave;
+    }
+    public double getAnguloGrupo(){
+        return anguloGrupo;
     }
     
     
