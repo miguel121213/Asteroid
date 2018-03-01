@@ -5,6 +5,7 @@
  */
 package asteroids;
 
+import java.util.ArrayList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
@@ -45,7 +46,7 @@ public class Asteroid {
         forma.setLayoutX(asteroidPosX);
         
     }
-    public void crearAsteroide(){       
+    public void crearFormaAsteroide(){       
         
         forma.getPoints().addAll(new Double[]{
              0.0, 0.0,
@@ -78,8 +79,5 @@ public class Asteroid {
          double anguloAsteroid = forma.getRotate();
          anguloAsteroid += velocidadGiroAsteroid;
          forma.setRotate(anguloAsteroid);
-    }
-                    
-   
-    
+    }    
 }

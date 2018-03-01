@@ -7,8 +7,8 @@ package asteroids;
 
 
 
+import java.util.ArrayList;
 import java.util.Random;
-import javafx.scene.shape.Polygon;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import static javafx.scene.input.KeyCode.UP;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 /**
 /**
@@ -32,10 +31,14 @@ public class MainAsteroid extends Application {
     double velocidadGiroBala;
     double posBalaY = navePosY +10;
     double posBalaX = navePosX + 50;
+
+    private ArrayList<Asteroid> arrayListasteroid;
+    private ArrayList<Bala> arrayListBala;
     
     @Override
     public void start(Stage primaryStage) {
-        Asteroid asteroid = new Asteroid();
+
+//        Asteroid asteroid = new Asteroid();
         Nave naveFuego = new Nave();
         Bala bala = new Bala();
         //Color aleatorio 
@@ -49,15 +52,25 @@ public class MainAsteroid extends Application {
         naveFuego.crearFuego();
         naveFuego.crearNave();
         root.getChildren().add(naveFuego.returnPaneNaveFuego());
+//        root.getChildren().add(asteroid.getForma());
         naveFuego.tamañoPaneYañadirNaveFuego();
-        asteroid.crearAsteroide();
-        asteroid.velocidadAsteroide();
-        asteroid.asteroidePos();       
+//        asteroid.velocidadAsteroide();
+//        asteroid.asteroidePos();       
         root.getChildren().add(bala.getBala()); //añadir la bala al root
-        root.getChildren().add(asteroid.getForma());
         naveFuego.posPaneNaveFuego();
         naveFuego.fuegoInvisible(); //poner fuego en invisible 
         bala.balaInVisible();
+        scene.getStylesheets().add("newCascadeStyleSheet.css");
+//        asteroid.crearAsteroide();
+        arrayListasteroid = new ArrayList<Asteroid>();
+        for (int i = 0; i < 5; i++){
+            Asteroid asteroid = new Asteroid();
+            asteroid.crearFormaAsteroide();
+            arrayListasteroid.add(asteroid);
+            asteroid.velocidadAsteroide();
+            asteroid.asteroidePos(); 
+            root.getChildren().add(asteroid.getForma());            
+        }
         scene.setOnKeyPressed((KeyEvent event) -> { // switch para teclas 
             switch(event.getCode()){
                 case UP:                    
@@ -89,17 +102,21 @@ public class MainAsteroid extends Application {
         
         AnimationTimer movimimientoNave; //crear la animacion
         movimimientoNave = new AnimationTimer() {       
-            public void handle(long now) {               
-                //Calcular angulo para direcciones
+            public void handle(long now) {
+                for(int i=0; i<arrayListasteroid.size(); i++){
+                    Asteroid getAsteroid =  arrayListasteroid.get(i);
+                    getAsteroid.giroAsteroide();
+                    getAsteroid.movimientoAsteroide();
+                    getAsteroid.bordes();
+                }                      
                 naveFuego.calcularAngulo();
-                asteroid.giroAsteroide();
                 naveFuego.calcularAngulo();
                  //color aleatorio nave
                 naveFuego.colorNave();
                 //movimiento nave y fuego
                 naveFuego.movimientoPaneNaveFuego();
                 //Movimiento Asteroid
-                asteroid.movimientoAsteroide();
+
                 //MovimientoBala
                 bala.movimientoBala();
                 //Giros
@@ -110,7 +127,6 @@ public class MainAsteroid extends Application {
 //                }
 //                naveFuego.calcularRestoAngulo();
                 // al salir del screen 
-                asteroid.bordes();
                 naveFuego.naveBordes();                  
             }           
        };
