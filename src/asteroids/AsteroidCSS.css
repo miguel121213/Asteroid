@@ -1,9 +1,8 @@
-#boton1:hover{
-    -fx-font-size: 34px;
-}
+
 .root{
     -fx-background-color:black;
 }
-.formaBala{
-    -fx-background-color:white;
+#balaID{
+    -fx-fill:#ffffff;
+    -fx-stroke:white;
 }

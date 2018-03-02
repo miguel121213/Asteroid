@@ -36,8 +36,8 @@ public class Asteroid {
         
     }
     public void velocidadAsteroide(){
-        velocidadAsteroidX = Math.random()* (5 - (-5)) + (-5);
-        velocidadAsteroidY = Math.random() * (5 - (-5)) + (-5);
+        velocidadAsteroidX = Math.random()* (3 - (-1)) + (-1);
+        velocidadAsteroidY = Math.random() * (3 - (-1)) + (-1);
     }
     public void movimientoAsteroide(){       
         asteroidPosY += velocidadAsteroidY;

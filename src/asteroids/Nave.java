@@ -80,8 +80,6 @@ public class Nave {
     public void velocidadNave(){
         direccionXNave = Math.cos(Math.toRadians(anguloGrupo));
         direccionYNave = Math.sin(Math.toRadians(anguloGrupo));
-//        velocidadNaveY += 0.5 * direccionYNave;
-//        velocidadNaveY += 0.5 * direccionXNave; 
         if ((velocidadNaveX == 0) ||(velocidadNaveY == 0)){
             velocidadNaveY += 1 * direccionYNave;
             velocidadNaveX += 1 * direccionXNave;

@@ -22,7 +22,9 @@ public class Bala {
     double direccionBalaY;
     
 
-    
+    public Bala(){
+        formaBala.setId("balaID");
+    }
     public Circle getBala(){
         return formaBala;       
     }

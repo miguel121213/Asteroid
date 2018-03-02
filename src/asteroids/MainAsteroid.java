@@ -16,6 +16,9 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import static javafx.scene.input.KeyCode.UP;
 import javafx.scene.input.KeyEvent;
+import static javafx.scene.paint.Color.WHITE;
+import static javafx.scene.paint.Color.color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 /**
 /**
@@ -39,8 +42,6 @@ public class MainAsteroid extends Application {
 
 //        Asteroid asteroid = new Asteroid();
         Nave naveFuego = new Nave();
-        Bala bala = new Bala();
-        
         //Color aleatorio 
         Pane root = new Pane(); //Panel       
         Scene scene = new Scene (root, ANCHOPANEL, ALTOPANEL); //Crear pantalla
@@ -53,21 +54,10 @@ public class MainAsteroid extends Application {
         naveFuego.crearFuego();
         naveFuego.crearNave();
         root.getChildren().add(naveFuego.returnPaneNaveFuego());
-//        root.getChildren().add(asteroid.getForma());
-        naveFuego.tamañoPaneYañadirNaveFuego();
-//        asteroid.velocidadAsteroide();
-//        asteroid.asteroidePos();       
-        root.getChildren().add(bala.getBala()); //añadir la bala al root
+        naveFuego.tamañoPaneYañadirNaveFuego(); 
         naveFuego.posPaneNaveFuego();
-        naveFuego.fuegoInvisible(); //poner fuego en invisible 
-        bala.balaInVisible();
+        naveFuego.fuegoInvisible(); //poner fuego en invisible      
         scene.getStylesheets().add("asteroids/AsteroidCSS.css");
-//      boton
-        Button btnEstilo1 = new Button();
-        root.getChildren().add(btnEstilo1);
-        btnEstilo1.setText("Estilo1");
-        btnEstilo1.setId("boton1");
-//        asteroid.crearAsteroide();
         arrayListasteroid = new ArrayList<Asteroid>();
         for (int i = 0; i < 5; i++){
             Asteroid asteroid = new Asteroid();
@@ -76,6 +66,12 @@ public class MainAsteroid extends Application {
             asteroid.velocidadAsteroide();
             asteroid.asteroidePos(); 
             root.getChildren().add(asteroid.getForma());            
+        }
+        arrayListBala = new ArrayList<Bala>();
+        for (int i = 0; i<arrayListBala.size(); i++){
+            Bala bala = new Bala();
+            root.getChildren().add(bala.getBala()); //añadir la bala al root
+            bala.balaInVisible();  
         }
         scene.setOnKeyPressed((KeyEvent event) -> { // switch para teclas 
             switch(event.getCode()){
