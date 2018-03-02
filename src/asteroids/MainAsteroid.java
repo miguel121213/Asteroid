@@ -8,12 +8,11 @@ package asteroids;
 
 
 import java.util.ArrayList;
-import java.util.Random;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import static javafx.scene.input.KeyCode.UP;
 import javafx.scene.input.KeyEvent;
@@ -41,12 +40,14 @@ public class MainAsteroid extends Application {
 //        Asteroid asteroid = new Asteroid();
         Nave naveFuego = new Nave();
         Bala bala = new Bala();
+        
         //Color aleatorio 
         Pane root = new Pane(); //Panel       
-        Scene scene = new Scene (root, ANCHOPANEL, ALTOPANEL, Color.BLACK); //Crear pantalla
+        Scene scene = new Scene (root, ANCHOPANEL, ALTOPANEL); //Crear pantalla
         primaryStage.setTitle("Asteroids");
         primaryStage.setScene(scene);
         primaryStage.show();
+        scene.getStylesheets().add("AsteroidCSS.css");
         //Nave
         naveFuego.returnPaneNaveFuego();   
         naveFuego.crearFuego();
@@ -60,7 +61,12 @@ public class MainAsteroid extends Application {
         naveFuego.posPaneNaveFuego();
         naveFuego.fuegoInvisible(); //poner fuego en invisible 
         bala.balaInVisible();
-        scene.getStylesheets().add("newCascadeStyleSheet.css");
+        scene.getStylesheets().add("asteroids/AsteroidCSS.css");
+//      boton
+        Button btnEstilo1 = new Button();
+        root.getChildren().add(btnEstilo1);
+        btnEstilo1.setText("Estilo1");
+        btnEstilo1.setId("boton1");
 //        asteroid.crearAsteroide();
         arrayListasteroid = new ArrayList<Asteroid>();
         for (int i = 0; i < 5; i++){

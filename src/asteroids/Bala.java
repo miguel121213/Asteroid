@@ -15,11 +15,12 @@ import javafx.scene.shape.Circle;
 public class Bala {
     double velocidadBalaY;
     double velocidadBalaX;
-    Circle formaBala = new Circle(1, 1, 1, Color.WHITE);
+    Circle formaBala = new Circle(1, 1, 1);
     double posBalaX;
     double posBalaY;
     double direccionBalaX;
     double direccionBalaY;
+    
 
     
     public Circle getBala(){
