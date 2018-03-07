@@ -13,8 +13,7 @@ import javafx.scene.shape.Circle;
  * @author 1DAW08
  */
 public class Bala {
-    double velocidadBalaY;
-    double velocidadBalaX;
+    final double VELOCIDADBALA = 10;
     Circle formaBala = new Circle(1, 1, 1);
     double posBalaX;
     double posBalaY;
@@ -29,25 +28,28 @@ public class Bala {
         return formaBala;       
     }
     public void pulsarEspacio(double anguloNave, double posNaveX, double posNaveY){
-        direccionBalaX = Math.cos(Math.toRadians(anguloNave));
-        direccionBalaY = Math.sin(Math.toRadians(anguloNave));
-        posBalaY = posNaveY + 10;
-        formaBala.setLayoutY(posBalaX);
+        direccionBalaX = VELOCIDADBALA * Math.cos(Math.toRadians(anguloNave));
+        direccionBalaY = VELOCIDADBALA * Math.sin(Math.toRadians(anguloNave));
+        posBalaY = posNaveY+ 10;
+        formaBala.setCenterY(posBalaY);
         posBalaX = posNaveX + 50;
-        formaBala.setLayoutX(posBalaX);
-        velocidadBalaX = 15;
-        velocidadBalaY = 15;              
+        formaBala.setCenterX(posBalaX);            
         formaBala.setVisible(true);
     }
     public void movimientoBala(){
-        posBalaY += velocidadBalaY * direccionBalaY;
-        formaBala.setLayoutY(posBalaY);
-        posBalaX += velocidadBalaX * direccionBalaX;
-        formaBala.setLayoutX(posBalaX);
+//        posBalaY += velocidadBalaY * direccionBalaY;
+//        formaBala.setLayoutY(posBalaY);
+//        posBalaX += velocidadBalaX * direccionBalaX;
+//        formaBala.setLayoutX(posBalaX);
+        formaBala.setCenterX(formaBala.getCenterX() + direccionBalaX);
+        formaBala.setCenterY(formaBala.getCenterY() + direccionBalaY);
     }
 
     public void balaInVisible(){
         formaBala.setVisible(false);
+    }
+    public void balaVisible(){
+        formaBala.setVisible(true);
     }
 
     

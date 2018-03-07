@@ -19,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import static javafx.scene.paint.Color.WHITE;
 import static javafx.scene.paint.Color.color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 /**
 /**
@@ -33,7 +34,8 @@ public class MainAsteroid extends Application {
     double velocidadGiroBala;
     double posBalaY = navePosY +10;
     double posBalaX = navePosX + 50;
-
+    Bala bala;
+    Asteroid asteroid;
     private ArrayList<Asteroid> arrayListasteroid;
     private ArrayList<Bala> arrayListBala;
     
@@ -59,7 +61,7 @@ public class MainAsteroid extends Application {
         naveFuego.fuegoInvisible(); //poner fuego en invisible      
         scene.getStylesheets().add("asteroids/AsteroidCSS.css");
         arrayListasteroid = new ArrayList<Asteroid>();
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++){                
             Asteroid asteroid = new Asteroid();
             asteroid.crearFormaAsteroide();
             arrayListasteroid.add(asteroid);
@@ -67,12 +69,8 @@ public class MainAsteroid extends Application {
             asteroid.asteroidePos(); 
             root.getChildren().add(asteroid.getForma());            
         }
-        arrayListBala = new ArrayList<Bala>();
-        for (int i = 0; i<arrayListBala.size(); i++){
-            Bala bala = new Bala();
-            root.getChildren().add(bala.getBala()); //añadir la bala al root
-            bala.balaInVisible();  
-        }
+        arrayListBala = new ArrayList<Bala>(); //Crear Lista balas
+      //keys   
         scene.setOnKeyPressed((KeyEvent event) -> { // switch para teclas 
             switch(event.getCode()){
                 case UP:                    
@@ -85,11 +83,17 @@ public class MainAsteroid extends Application {
                 case LEFT:
                     naveFuego.giroIzquierda();
                     break;
-                case SPACE:
-                    bala.pulsarEspacio(naveFuego.getAnguloGrupo(), naveFuego.getNavePosX(), 
-                    naveFuego.getNavePosY());
-                    break;
-            }
+                    case SPACE: 
+                        bala = new Bala(); // crear bala
+                        root.getChildren().add(bala.getBala()); // añadirla al root
+                        arrayListBala.add(bala);
+                        bala.pulsarEspacio(naveFuego.getAnguloGrupo(), naveFuego.getNavePosX(), 
+                        naveFuego.getNavePosY());
+                        bala.balaVisible();
+                        break;
+                 
+                }
+          
  
         });
 
@@ -117,17 +121,31 @@ public class MainAsteroid extends Application {
                 naveFuego.colorNave();
                 //movimiento nave y fuego
                 naveFuego.movimientoPaneNaveFuego();
-                //Movimiento Asteroid
-
+                //Colision Nave Asteroide
+//                Shape colisionNaveFuego = Shape.intersect(naveFuego.formaNave, asteroid.getForma());
+//                boolean colisionVaciaNaveFuego = colisionNaveFuego.getBoundsInLocal().isEmpty();
+//                if (colisionVaciaNaveFuego == false){
+//                    
+//                    
+//                }
+                //Colision Bala asteroide
+                Shape colisionBalaAsteroide = Shape.intersect(arrayListBala, arrayListaAsteroide);
+                boolean colisionVaciaBalaAsteroide = colisionBalaAsteroide.getBoundsInLocal().isEmpty();
+                if(colisionVaciaBalaAsteroide == false){
+                    arrayListasteroid.remove(asteroid);
+                }
                 //MovimientoBala
-                bala.movimientoBala();
+                for(int i=0; i<arrayListBala.size(); i++){
+                    Bala balaGuardada =arrayListBala.get(i);
+                    balaGuardada.movimientoBala();
+                }
+                
                 //Giros
                 naveFuego.calcularGiroNave();                             
 //                if ((velocidadNaveY>10) || (velocidadNaveX > 10)){
 //                    velocidadNaveY = 10;
 //                    velocidadNaveX = 10;
 //                }
-//                naveFuego.calcularRestoAngulo();
                 // al salir del screen 
                 naveFuego.naveBordes();                  
             }           
