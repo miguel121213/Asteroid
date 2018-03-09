@@ -12,13 +12,9 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import static javafx.scene.input.KeyCode.UP;
 import javafx.scene.input.KeyEvent;
-import static javafx.scene.paint.Color.WHITE;
-import static javafx.scene.paint.Color.color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 /**
@@ -32,8 +28,6 @@ public class MainAsteroid extends Application {
     int navePosY = ALTOPANEL/2;
     int navePosX = ANCHOPANEL /2;
     double velocidadGiroBala;
-    double posBalaY = navePosY +10;
-    double posBalaX = navePosX + 50;
     Bala bala;
     Asteroid asteroid;
     private ArrayList<Asteroid> arrayListasteroid;
@@ -66,7 +60,8 @@ public class MainAsteroid extends Application {
             asteroid.crearFormaAsteroide();
             arrayListasteroid.add(asteroid);
             asteroid.velocidadAsteroide();
-            asteroid.asteroidePos(); 
+            asteroid.asteroidePosY();
+            asteroid.asteroidePosX();
             root.getChildren().add(asteroid.getForma());            
         }
         arrayListBala = new ArrayList<Bala>(); //Crear Lista balas
@@ -121,25 +116,40 @@ public class MainAsteroid extends Application {
                 naveFuego.colorNave();
                 //movimiento nave y fuego
                 naveFuego.movimientoPaneNaveFuego();
-                //Colision Nave Asteroide
-//                Shape colisionNaveFuego = Shape.intersect(naveFuego.formaNave, asteroid.getForma());
-//                boolean colisionVaciaNaveFuego = colisionNaveFuego.getBoundsInLocal().isEmpty();
-//                if (colisionVaciaNaveFuego == false){
-//                    
-//                    
-//                }
-                //Colision Bala asteroide
-                Shape colisionBalaAsteroide = Shape.intersect(arrayListBala, arrayListaAsteroide);
-                boolean colisionVaciaBalaAsteroide = colisionBalaAsteroide.getBoundsInLocal().isEmpty();
-                if(colisionVaciaBalaAsteroide == false){
-                    arrayListasteroid.remove(asteroid);
+                if(arrayListasteroid.isEmpty()){
+                    for (int i = 0; i < 5; i++){                
+                    Asteroid asteroid = new Asteroid();
+                    asteroid.crearFormaAsteroide();
+                    arrayListasteroid.add(asteroid);
+                    asteroid.velocidadAsteroide();
+                    asteroid.asteroidePosY();
+                    asteroid.asteroidePosX();
+                    root.getChildren().add(asteroid.getForma());            
+        }
                 }
                 //MovimientoBala
                 for(int i=0; i<arrayListBala.size(); i++){
                     Bala balaGuardada =arrayListBala.get(i);
                     balaGuardada.movimientoBala();
-                }
+                    if ((balaGuardada.posBalaX > 800) || (balaGuardada.posBalaX < 0)
+                    ||(balaGuardada.posBalaY < 0)|| (balaGuardada.posBalaY > 800)){
+                            arrayListBala.remove(balaGuardada);
+                            balaGuardada.formaBala.setVisible(false);
+                            root.getChildren().remove(balaGuardada.formaBala);
+                    }
                 
+                    for (int j = 0; j < arrayListasteroid.size(); j++){
+                        Asteroid asteroidGuardado = arrayListasteroid.get(j);
+                        Shape colisionBalaAsteroide = Shape.intersect(asteroidGuardado.forma, balaGuardada.formaBala);
+                        boolean colisionVaciaBalaAsteroide = colisionBalaAsteroide.getBoundsInLocal().isEmpty();
+                            if(colisionVaciaBalaAsteroide == false){
+                                    arrayListasteroid.remove(asteroidGuardado);
+                                    asteroidGuardado.forma.setVisible(false);
+                                    root.getChildren().remove(asteroidGuardado.forma);
+                                    
+                        }
+                    }
+                }
                 //Giros
                 naveFuego.calcularGiroNave();                             
 //                if ((velocidadNaveY>10) || (velocidadNaveX > 10)){

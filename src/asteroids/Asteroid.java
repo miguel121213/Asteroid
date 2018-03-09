@@ -30,10 +30,11 @@ public class Asteroid {
 
     
     
-    public void asteroidePos(){
-             asteroidPosY = Math.random()* (ALTOPANEL);
-             asteroidPosX = Math.random()* (ANCHOPANEL);
-        
+    public void asteroidePosY(){
+             asteroidPosY = Math.random()* (ALTOPANEL);          
+    }
+    public void asteroidePosX( ){
+        asteroidPosX = Math.random()* (ANCHOPANEL);
     }
     public void velocidadAsteroide(){
         velocidadAsteroidX = Math.random()* (3 - (-1)) + (-1);
