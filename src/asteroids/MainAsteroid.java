@@ -85,9 +85,9 @@ public class MainAsteroid extends Application {
                         bala.pulsarEspacio(naveFuego.getAnguloGrupo(), naveFuego.getNavePosX(), 
                         naveFuego.getNavePosY());
                         bala.balaVisible();
-                        break;
-                 
+                        break;                 
                 }
+                
           
  
         });
@@ -127,7 +127,7 @@ public class MainAsteroid extends Application {
                     root.getChildren().add(asteroid.getForma());            
         }
                 }
-                //MovimientoBala
+                //colision con Asteroide Bala
                 for(int i=0; i<arrayListBala.size(); i++){
                     Bala balaGuardada =arrayListBala.get(i);
                     balaGuardada.movimientoBala();
@@ -150,6 +150,15 @@ public class MainAsteroid extends Application {
                         }
                     }
                 }
+                //Colision Nave Asteroide
+                for(int i= 0; i<arrayListasteroid.size(); i++){
+                    Asteroid asteroideGurdado2 = arrayListasteroid.get(i);
+                        Shape colisionNaveAsteroide = Shape.intersect(asteroideGurdado2.forma, naveFuego.formaNave);
+                        boolean colisionVaciaBalaAsteroide = colisionNaveAsteroide.getBoundsInLocal().isEmpty();
+                        if (colisionVaciaBalaAsteroide == false){
+                           this.stop();
+                        }
+                }
                 //Giros
                 naveFuego.calcularGiroNave();                             
 //                if ((velocidadNaveY>10) || (velocidadNaveX > 10)){
@@ -160,7 +169,13 @@ public class MainAsteroid extends Application {
                 naveFuego.naveBordes();                  
             }           
        };
-        movimimientoNave.start();     
+//        movimimientoNave.start(); 
+//        scene.setOnKeyPressed((KeyEvent event) -> { // switch para teclas 
+//            switch(event.getCode()){
+//                case F:
+//                    movimimientoNave.start(); 
+//            }
+//        });
     }
     /**
      * @param args the command line arguments
