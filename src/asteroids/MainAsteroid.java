@@ -44,7 +44,7 @@ public class MainAsteroid extends Application {
         primaryStage.setTitle("Asteroids");
         primaryStage.setScene(scene);
         primaryStage.show();
-        scene.getStylesheets().add("AsteroidCSS.css");
+//        scene.getStylesheets().add("AsteroidCSS.css");
         //Nave
         naveFuego.returnPaneNaveFuego();   
         naveFuego.crearFuego();
@@ -169,7 +169,7 @@ public class MainAsteroid extends Application {
                 naveFuego.naveBordes();                  
             }           
        };
-//        movimimientoNave.start(); 
+        movimimientoNave.start(); 
 //        scene.setOnKeyPressed((KeyEvent event) -> { // switch para teclas 
 //            switch(event.getCode()){
 //                case F:
